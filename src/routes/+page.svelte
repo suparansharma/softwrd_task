@@ -1,10 +1,11 @@
 <script>
 	import MapElement from '$lib/MapElement.svelte';
+	import SuccessChart from '$lib/SuccessChart.svelte';
 	import TableElement from '$lib/TableElement.svelte';
 	import { onMount } from 'svelte';
 	let error = null;
 	let landpads = $state([]);
-	let loading = true;
+	let loading = $state(true);
 
 	onMount(async () => {
 		try {
@@ -34,7 +35,14 @@
 	<div class="col-span-1 lg:col-span-2 border-r pr-4">
 		<TableElement {landpads} />
 	</div>
+
 	<div class="col-span-1 pl-4">
 		<MapElement {landpads} />
+		<!-- <SuccessChart {landpads} /> -->
+		{#if !loading }
+			<SuccessChart {landpads} />
+		{/if}
 	</div>
+
+	
 </div>
