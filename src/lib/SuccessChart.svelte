@@ -9,11 +9,12 @@
       return attempted_landings > 0 
           ? Math.round((successful_landings / attempted_landings) * 100) 
           : 0; 
-
-          // return successful_landings
   });
 
-  console.log("Success Rates:", landpads); 
+  let success_label = landpads.map(landpad => {
+      const { full_name } = landpad;
+      return full_name; 
+  });
 
   const options = {
     series: success_rate, 
@@ -64,15 +65,7 @@
         top: -2
       }
     },
-    labels: [
-      'Landpad 1',
-      'Landpad 2',
-      'Landpad 3',
-      'Landpad 4',
-      'Landpad 5',
-      'Landpad 6',
-      'Landpad 7'
-    ], // Add appropriate labels
+    labels: success_label, 
     dataLabels: {
       enabled: false
     },
