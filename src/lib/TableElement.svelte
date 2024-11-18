@@ -12,13 +12,14 @@
 		Badge
 	} from 'flowbite-svelte';
 	import { Dropdown, DropdownItem } from 'flowbite-svelte';
-	import { ChevronDownOutline } from 'flowbite-svelte-icons';
+	import { ChevronDownOutline, LinkOutline } from 'flowbite-svelte-icons';
 
 	let { landpads } = $props();
 
 	let defaultModal = $state(false);
 	let landpadDetails = $state('');
 	let selectedStatus = $state('');
+	let landpadHeader = $state('');
 
 	// Helper function to calculate the success rate
 	const calculateSuccessRate = (successful, attempted) => {
@@ -26,6 +27,7 @@
 	};
 
 	const handelDetailsModal = (landpad) => {
+		console.log("landpad",landpad)
 		defaultModal = true;
 		landpadDetails = landpad?.details;
 	};
@@ -59,59 +61,63 @@
 	<TableHead>
 		<TableHeadCell>Full Name</TableHeadCell>
 		<TableHeadCell>Location Name</TableHeadCell>
+		<TableHeadCell>Details</TableHeadCell>
 		<TableHeadCell>Success Rate (%)</TableHeadCell>
 		<TableHeadCell>Wikipedia Link</TableHeadCell>
-		<TableHeadCell>Details</TableHeadCell>
 		<TableHeadCell>Status</TableHeadCell>
 	</TableHead>
 	<TableBody tableBodyClass="divide-y">
 		{#each filteredLandpads() as landpad}
-			<TableBodyRow>
-				<TableBodyCell>{landpad.full_name}</TableBodyCell>
-				<TableBodyCell>
+			<TableBodyRow class="hover:bg-gray-100">
+				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3"
+					>{landpad.full_name}</TableBodyCell
+				>
+				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3">
 					{landpad.location.name}, {landpad.location.region}
 				</TableBodyCell>
-				<TableBodyCell>
-					<div class="my-4">
-						<Progressbar
-							progress={calculateSuccessRate(
-								landpad.successful_landings,
-								landpad.attempted_landings
-							)}
-							color="green"
-						/>
-						<div class="mb-1 text-base font-medium dark:text-white">
-							{calculateSuccessRate(landpad.successful_landings, landpad.attempted_landings)}%
-						</div>
-					</div>
+				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3">
+					<button onclick={() => handelDetailsModal(landpad)}><Badge color="dark"> View Details</Badge></button>
 				</TableBodyCell>
-				<TableBodyCell>
+				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3">
+					{#if calculateSuccessRate(landpad.successful_landings, landpad.attempted_landings) !== 'N/A'}
+						<!-- <div class="my-4"> -->
+							<Progressbar
+								progress={calculateSuccessRate(
+									landpad.successful_landings,
+									landpad.attempted_landings
+								)}
+								progressClass="bg-[#31C48D] "
+							/>
+							<div class="mb-1 text-base font-medium dark:text-white">
+								{calculateSuccessRate(landpad.successful_landings, landpad.attempted_landings)}%
+							</div>
+						<!-- </div> -->
+					{:else}
+						<div class="text-base font-medium dark:text-white">N/A</div>
+					{/if}
+				</TableBodyCell>
+
+				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3">
 					<a
 						href={landpad.wikipedia}
 						class="font-medium text-primary-600 hover:underline dark:text-primary-500"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						Learn More
+						<LinkOutline class="w-6 h-6 ms-2 text-[#1C64F2] " />
 					</a>
 				</TableBodyCell>
-				<TableBodyCell>
-					<button on:click={() => handelDetailsModal(landpad)}>Details</button>
-				</TableBodyCell>
-				<TableBodyCell class="capitalize">
+				
+				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3 capitalize">
 					<Badge color={getBadgeColor(landpad.status)}>{landpad.status}</Badge>
 				</TableBodyCell>
 			</TableBodyRow>
 		{/each}
 	</TableBody>
 </Table>
+
 <Modal title="Terms of Service" bind:open={defaultModal} autoclose>
-	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+	<p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 mb-5">
 		{landpadDetails}
 	</p>
-
-	<svelte:fragment slot="footer">
-		<Button on:click={() => alert('Handle "success"')}>I accept</Button>
-		<Button color="alternative">Decline</Button>
-	</svelte:fragment>
 </Modal>
