@@ -1,4 +1,5 @@
 <script>
+	import { Spinner } from 'flowbite-svelte';
 	import MapElement from '$lib/MapElement.svelte';
 	import SuccessChart from '$lib/SuccessChart.svelte';
 	import TableElement from '$lib/TableElement.svelte';
@@ -32,17 +33,22 @@
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+
 	<div class="col-span-1 lg:col-span-2 border-r pr-4">
-		<TableElement {landpads} />
+		{#if loading}
+			<Spinner color="green" class="mx-auto w-16 h-16 justify-center items-center"  />
+			
+		{:else}
+			<TableElement {landpads} />
+		{/if}
 	</div>
 
 	<div class="col-span-1 pl-4">
 		<MapElement {landpads} />
 		<!-- <SuccessChart {landpads} /> -->
-		{#if !loading }
+		{#if !loading}
 			<SuccessChart {landpads} />
 		{/if}
 	</div>
-
-	
 </div>

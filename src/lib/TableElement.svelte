@@ -61,6 +61,7 @@
 	<TableHead>
 		<TableHeadCell>Full Name</TableHeadCell>
 		<TableHeadCell>Location Name</TableHeadCell>
+		<TableHeadCell>Region</TableHeadCell>
 		<TableHeadCell>Details</TableHeadCell>
 		<TableHeadCell>Success Rate (%)</TableHeadCell>
 		<TableHeadCell>Wikipedia Link</TableHeadCell>
@@ -73,7 +74,10 @@
 					>{landpad.full_name}</TableBodyCell
 				>
 				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3">
-					{landpad.location.name}, {landpad.location.region}
+					{landpad.location.name}
+				</TableBodyCell>
+				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3">
+					 {landpad.location.region}
 				</TableBodyCell>
 				<TableBodyCell class="px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-3">
 					<button onclick={() => handelDetailsModal(landpad)}><Badge color="dark"> View Details</Badge></button>
