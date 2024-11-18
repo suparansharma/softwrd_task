@@ -24,4 +24,4 @@
 	});
 </script>
 
-<div bind:this={overlayEl} class="w-6 h-6 rounded-full bg-[#f65252]"></div>
+<div bind:this={overlayEl} class="w-6 h-6 rounded-full bg-[#91F652]"></div>

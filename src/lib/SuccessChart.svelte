@@ -102,7 +102,7 @@
   };
 </script>
 
-<Card>
+<Card size="md">
   <div class="flex justify-between items-start w-full">
     <div class="flex-col items-center">
       <div class="flex items-center mb-1">

@@ -23,7 +23,7 @@
 	});
 </script>
 
-<div class="w-full pt-10 pb-10 text-center border-b-4 item-center mb-10">
+<div class="w-full pt-5 pb-3 text-center border-b-4 item-center mb-10">
 	<img
 		class="h-[50px] mx-auto"
 		src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/SpaceX_Logo_Black.png/797px-SpaceX_Logo_Black.png"
@@ -32,21 +32,18 @@
 	/>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-
-	<div class="col-span-1 lg:col-span-2 border-r pr-4">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-4">
+	<div class="col-span-1 lg:col-span-2 border-r pr-4 pl-5">
 		{#if loading}
-			<Spinner color="green" class="mx-auto w-16 h-16 justify-center items-center"  />
-			
+			<Spinner color="green" class="mx-auto w-16 h-16 justify-center items-center" />
 		{:else}
 			<TableElement {landpads} />
 		{/if}
 	</div>
 
 	<div class="col-span-1 pl-4">
+		
 		<MapElement {landpads} />
-		<!-- <SuccessChart {landpads} /> -->
 		{#if !loading}
 			<SuccessChart {landpads} />
 		{/if}
