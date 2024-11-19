@@ -2,7 +2,7 @@
 	import Overlay from 'ol/Overlay';
 	import { fromLonLat } from 'ol/proj';
 
-	let { landpad ,map} = $props();
+	let { landpad,map} = $props();
 	let overlayEl;
 	
 
@@ -10,7 +10,6 @@
 		if (!map || !overlayEl) {
 			return;
 		}
-
 		
 		const overlay = new Overlay({
 			element: overlayEl,

@@ -3,17 +3,18 @@
 	import MapElement from '$lib/MapElement.svelte';
 	import SuccessChart from '$lib/SuccessChart.svelte';
 	import TableElement from '$lib/TableElement.svelte';
-	import { onMount } from 'svelte';
+	import Header from '../components/Header.svelte';
 	import RectangleListIcon from '../elements/RectangleListIcon.svelte';
 	import AdjustmentFilterIcon from '../elements/AdjustmentFilterIcon.svelte';
 	import GridIcon from '../elements/GridIcon.svelte';
-	import Header from '../components/Header.svelte';
+	import { onMount } from 'svelte';
+	import { fetchLandpads } from '../utils/api';
 
-	let error = $state(null);
-	let landpads = $state([]);
-	let loading = $state(true);
-	let loadingSecondary = $state(true); 
-	let selectedStatus = $state('');
+	let error = null;
+	let landpads = [];
+	let loading = true;
+	let loadingSecondary = true;
+	let selectedStatus = '';
 
 	let statusOptions = [
 		{ value: '', name: 'All' },
@@ -24,20 +25,15 @@
 
 	const filteredLandpads = () =>
 		selectedStatus ? landpads.filter((landpad) => landpad.status === selectedStatus) : landpads;
-		onMount(async () => {
+
+	onMount(async () => {
 		try {
-			const response = await fetch('https://api.spacexdata.com/v3/landpads');
-			if (!response.ok) {
-				throw new Error('Failed to fetch landpads data');
-			}
-			landpads = await response.json();
+			landpads = await fetchLandpads();
 		} catch (err) {
 			error = err.message;
 		} finally {
 			loading = false;
-			setTimeout(() => {
-				loadingSecondary = false;
-			}, 1000);
+			setTimeout(() => (loadingSecondary = false), 1000);
 		}
 	});
 </script>
@@ -51,6 +47,8 @@
 			<div class="flex justify-center items-center h-screen">
 				<Spinner color="green" class="w-20 h-20" />
 			</div>
+		{:else if error}
+			<div class="text-red-500 text-center">{error}</div>
 		{:else}
 			<div class="w-full pt-5 pb-5 text-center mb-10">
 				<div class="relative flex flex-col md:flex-row items-center justify-between">
@@ -68,7 +66,7 @@
 								<AdjustmentFilterIcon />
 							</div>
 							<select
-								class="w-full px-10 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-12"
+								class="w-full px-10 py-2 border rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-12"
 								bind:value={selectedStatus}
 							>
 								{#each statusOptions as item}
@@ -91,7 +89,7 @@
 			</div>
 		{:else}
 			<div>
-				<MapElement {landpads} />
+				<MapElement landpads={filteredLandpads()} />
 				<SuccessChart landpads={filteredLandpads()} />
 			</div>
 		{/if}
