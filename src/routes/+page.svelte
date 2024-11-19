@@ -44,7 +44,7 @@
 
 <Header />
 
-<div class="grid grid-cols-1 gap-6 p-4 lg:grid-cols-3">
+<div class="grid grid-cols-1 gap-6 py-4 px-10 lg:grid-cols-3">
 	<!-- First Section: Landpads Table -->
 	<div class="col-span-1 lg:col-span-2 border-r pr-4 pl-5">
 		{#if loading}
@@ -84,7 +84,7 @@
 	</div>
 
 	<!-- Second Section: Map and Success Chart -->
-	<div class="col-span-1 pl-4 lg:pl-0">
+	<div class="col-span-1 pl-5 lg:pl-0">
 		{#if loadingSecondary}
 			<div class="flex justify-center items-center h-screen">
 				<Spinner color="blue" class="w-16 h-16" />
@@ -92,7 +92,7 @@
 		{:else}
 			<div>
 				<MapElement {landpads} />
-				<SuccessChart {landpads} />
+				<SuccessChart landpads={filteredLandpads()} />
 			</div>
 		{/if}
 	</div>

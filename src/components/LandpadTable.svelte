@@ -62,7 +62,7 @@
 							)}%
 						</div>
 					{:else}
-						<div class="text-base font-medium dark:text-white">N/A</div>
+						<div class="text-base font-small text-gray-400 dark:text-gray-500">N/A</div>
 					{/if}
 				</TableBodyCell>
 				<TableBodyCell>

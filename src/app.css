@@ -42,3 +42,7 @@
         max-width: 60%;
     }
 }
+
+#map {
+    @apply h-[355px] w-[555px];
+}
