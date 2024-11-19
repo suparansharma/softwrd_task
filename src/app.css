@@ -2,3 +2,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+@media (max-width: 640px) {
+    .table-cell {
+        display: block;
+        width: 100%;
+        padding: 1rem 0;
+    }
+    .table-cell:not(:first-child) {
+        margin-top: 1rem;
+    }
+    .table-row {
+        display: block;
+        margin-bottom: 1rem;
+    }
+    .table-cell-heading {
+        font-weight: bold;
+    }
+
+    .flowbite-modal {
+        max-width: 90%;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .table-cell {
+        padding: 0.5rem;
+    }
+
+    .flowbite-modal {
+        max-width: 80%;
+    }
+}
+
+@media (min-width: 1025px) {
+    .flowbite-modal {
+        max-width: 60%;
+    }
+}

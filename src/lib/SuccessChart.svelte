@@ -1,7 +1,7 @@
 <script>
   import { Chart, Card } from 'flowbite-svelte';
 
-  let { landpads } = $props(); // Assuming this is coming as props
+  let { landpads } = $props(); 
   
   // Calculate success_rate for each landpad
   let success_rate = landpads.map(landpad => {
@@ -15,7 +15,7 @@
       const { full_name } = landpad;
       return full_name; 
   });
-
+console.log("success_rate",success_rate)
   const options = {
     series: success_rate, 
     colors: ['#1C64F2', '#16BDCA', '#FDBA8C', '#E74694', '#A78BFA', '#34D399', '#FB923C'],
@@ -44,7 +44,7 @@
               label: 'Landing Pads',
               fontFamily: 'Inter, sans-serif',
               formatter: function () {
-                return success_rate.length; // Show the count of elements
+                return success_rate.filter(rate => rate > 0).length; 
               }
             },
             value: {
@@ -52,7 +52,7 @@
               fontFamily: 'Inter, sans-serif',
               offsetY: -20,
               formatter: function (value) {
-                return value + '%'; // Display percentage
+                return value + '%'; 
               }
             }
           },
@@ -70,7 +70,7 @@
       enabled: false
     },
     legend: {
-      show: false // Hides the legend
+      show: false 
     },
     yaxis: {
       labels: {

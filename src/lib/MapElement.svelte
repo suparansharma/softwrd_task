@@ -9,7 +9,7 @@
 	import { Card } from 'flowbite-svelte';
 
 	let { landpads } = $props();
-	let map;
+	let map = $state({});
 
 	onMount(async () => {
 		map = new Map({
