@@ -9,13 +9,12 @@
 	import GridIcon from '../elements/GridIcon.svelte';
 	import { onMount } from 'svelte';
 	import { fetchLandpads } from '../utils/api';
-
+	let selectedStatus = '';
 	let error = null;
 	let landpads = [];
 	let loading = true;
 	let loadingSecondary = true;
-	let selectedStatus = '';
-
+	
 	let statusOptions = [
 		{ value: '', name: 'All' },
 		{ value: 'active', name: 'Active' },
@@ -69,6 +68,7 @@
 								class="w-full px-10 py-2 border rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-12"
 								bind:value={selectedStatus}
 							>
+								<option value="" disabled selected>Filter By status</option>
 								{#each statusOptions as item}
 									<option value={item.value}>{item.name}</option>
 								{/each}

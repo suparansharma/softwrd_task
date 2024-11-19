@@ -7,8 +7,15 @@
 	import { onMount } from 'svelte';
 	import Marker from './../lib/marker.svelte';
 
-	let { landpads } = $props();
+	let {  landpads=$bindable() } = $props();
 	let map = $state({});
+
+	// let filteredPads = $derived(landpads);
+
+	// $effect(() => {
+	// 	filteredPads = landpads;
+	// 	console.log("filteredPads",landpads)
+	// });
 
 	onMount(async () => {
 		map = new Map({
@@ -33,12 +40,9 @@
 {/each}
 <div size="md" class="mb-4 rounded-md shadow-md overflow-hidden border border-[#E5E7EB]">
 	<div class="flex justify-between items-center">
-		<h5 class="text-xl p-8 font-bold leading-none text-gray-900 dark:text-white">Map View</h5>
+		<h5 class="text-xl p-6 font-bold leading-none text-gray-900 dark:text-white">Map View</h5>
 	</div>
 	<div class="relative h-[355px] w-full">
 		<div id="map" class="!w-full"></div>
 	</div>
-	
 </div>
-
-
